@@ -9,6 +9,7 @@ using Vortice.ShaderCompiler;
 using Vortice.Vulkan;
 using Vultaik;
 using Vultaik.Desktop;
+using Buffer = Vultaik.Buffer;
 
 namespace testingShaders
 {
@@ -21,6 +22,9 @@ namespace testingShaders
         Framebuffer framebuffer;
 
         GraphicsPipeline pipeline;
+        DescriptorSet descriptor;
+
+        Buffer constBuffer;
         
         public SampleApp()
         {
@@ -56,6 +60,18 @@ namespace testingShaders
             framebuffer = new(swapChain);
         }
 
+        void CreateBuffers()
+        {
+            constBuffer = new(device, new()
+            {
+                BufferFlags = BufferFlags.ConstantBuffer,
+                Usage = ResourceUsage.CPU_To_GPU,
+                SizeInBytes = Vultaik.Interop.SizeOf<Transform2D>()
+            });
+
+
+        }
+
         void CreatePipeline()
         {
             var compiler = new Compiler();
@@ -70,12 +86,12 @@ namespace testingShaders
             pd.SetVertexBinding(VkVertexInputRate.Vertex, VertexPositionColor.Size);
             pd.AddVertexAttribute<VertexPositionColor>();
             pipeline = new(pd);
+
+            DescriptorData dd = new();
+            dd.SetUniformBuffer(1, constBuffer);
+            descriptor = new(pipeline, dd);
         }
 
-        void CreateBuffers()
-        {
-
-        }
 
         void OnRender()
         {
