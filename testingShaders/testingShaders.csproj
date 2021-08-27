@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Vortice.ShaderCompiler" Version="1.3.29" />
+    <PackageReference Include="Vortice.Vulkan" Version="1.3.29" />
+    <PackageReference Include="Vultaik" Version="1.0.5" />
+    <PackageReference Include="Vultaik.Toolkit" Version="1.0.5" />
+  </ItemGroup>
+
+</Project>
